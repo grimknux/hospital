@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+
+        <title>Hospital EMR Test</title>
+
+        <meta name="description" content="AppUI is a Web App Bootstrap Admin Template created by pixelcave and published on Themeforest">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="noindex, nofollow">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="<?= base_url() ?>assets/appui/img/favicon.png">
+        <link rel="apple-touch-icon" href="<?= base_url() ?>assets/appui/img/icon57.png" sizes="57x57">
+        <link rel="apple-touch-icon" href="<?= base_url() ?>assets/appui/img/icon72.png" sizes="72x72">
+        <link rel="apple-touch-icon" href="<?= base_url() ?>assets/appui/img/icon76.png" sizes="76x76">
+        <link rel="apple-touch-icon" href="<?= base_url() ?>assets/appui/img/icon114.png" sizes="114x114">
+        <link rel="apple-touch-icon" href="<?= base_url() ?>assets/appui/img/icon120.png" sizes="120x120">
+        <link rel="apple-touch-icon" href="<?= base_url() ?>assets/appui/img/icon144.png" sizes="144x144">
+        <link rel="apple-touch-icon" href="<?= base_url() ?>assets/appui/img/icon152.png" sizes="152x152">
+        <link rel="apple-touch-icon" href="<?= base_url() ?>assets/appui/img/icon180.png" sizes="180x180">
+        <!-- END Icons -->
+
+        <!-- Stylesheets -->
+        <!-- Bootstrap is included in its original form, unaltered -->
+        <link rel="stylesheet" href="<?= base_url() ?>assets/appui/css/bootstrap.min.css">
+
+        <!-- Related styles of various icon packs and plugins -->
+        <link rel="stylesheet" href="<?= base_url() ?>assets/appui/css/plugins.css">
+
+        <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+        <link rel="stylesheet" href="<?= base_url() ?>assets/appui/css/main.css">
+
+        <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+        <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+        <link rel="stylesheet" href="<?= base_url() ?>assets/appui/css/themes.css">
+        <!-- END Stylesheets -->
+        <style>
+            #overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+                display: none; /* Hidden by default */
+                z-index: 9999; /* Make sure it appears above other elements */
+            }
+
+            .loader {
+                border: 4px solid #f3f3f3; /* Light grey border for the spinner */
+                border-top: 4px solid #3498db; /* Blue border for the spinner */
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                animation: spin 2s linear infinite;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-top: -25px; /* Center the spinner vertically */
+                margin-left: -25px; /* Center the spinner horizontally */
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
+            .thead-sm {
+                font-size: 14px;
+            }
+
+        </style>
+        <script src="<?= base_url() ?>assets/appui/js/vendor/modernizr-3.3.1.min.js"></script>
+    </head>
+    <body>
+        <div id="page-wrapper" class="page-loading">
+            <div class="preloader">
+                <div class="inner">
+                    <!-- Animation spinner for all modern browsers -->
+                    <div class="preloader-spinner themed-background hidden-lt-ie10"></div>
+
+                    <!-- Text for IE9 -->
+                    <h3 class="text-primary visible-lt-ie10"><strong>Loading..</strong></h3>
+                </div>
+            </div>
+            <div id="page-container" class="header-fixed-top sidebar-visible-lg-full">
+                <!-- Main Sidebar -->
+                <div id="sidebar">
+                    <!-- Sidebar Brand -->
+                    <div id="sidebar-brand" class="themed-background">
+                        <a href="index.html" class="sidebar-title">
+                            <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide">Hospital<strong>TEST</strong></span>
+                        </a>
+                    </div>
+                    <!-- END Sidebar Brand -->
+
+                    <!-- Wrapper for scrolling functionality -->
+                    <div id="sidebar-scroll">
+                        <!-- Sidebar Content -->
+                        <div class="sidebar-content">
+                            <!-- Sidebar Navigation -->
+                            <ul class="sidebar-nav">
+                                <li>
+                                    <a href="<?= base_url() ?>" class="<?= $navactive == 'view_patient' ? 'active' : '' ?>"><i class="gi gi-compass sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">View Patient</span></a>
+                                </li>
+                                </li>
+                            </ul>
+                            <!-- END Sidebar Navigation -->
+
+                        </div>
+                        <!-- END Sidebar Content -->
+                    </div>
+                    <!-- END Wrapper for scrolling functionality -->
+
+                    <!-- Sidebar Extra Info -->
+                    <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
+                        
+                        <div class="text-center">
+                            <small><span id="year-copy"></span> &copy; <a href="http://goo.gl/RcsdAh" target="_blank">AppUI 2.7</a></small>
+                        </div>
+                    </div>
+                    <!-- END Sidebar Extra Info -->
+                </div>
+                <!-- END Main Sidebar -->
+
+                <!-- Main Container -->
+                <div id="main-container">
+                    <header class="navbar navbar-inverse navbar-fixed-top">
+                        <!-- Left Header Navigation -->
+                        <ul class="nav navbar-nav-custom">
+                            <!-- Main Sidebar Toggle Button -->
+                            <li>
+                                <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                                    <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                                    <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
+                                </a>
+                            </li>
+                            <!-- END Main Sidebar Toggle Button -->
+                        </ul>
+                        <!-- END Left Header Navigation -->
+
+                        <!-- Right Header Navigation -->
+                        <ul class="nav navbar-nav-custom pull-right">
+                            <!-- User Dropdown -->
+                            <li class="dropdown">
+                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="<?= base_url() ?>assets/appui/img/placeholders/avatars/avatar9.jpg" alt="avatar">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-header">
+                                        <strong>ADMINISTRATOR</strong>
+                                    </li>
+                                    <li>
+                                        <a href="<?= base_url('user/logout') ?>">
+                                            <i class="fa fa-power-off fa-fw pull-right"></i>
+                                            Log out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END User Dropdown -->
+                        </ul>
+                        <!-- END Right Header Navigation -->
+                    </header>
+                    <!-- END Header -->
+
+                    <!-- Page content -->
+                    <div id="page-content">
+                        <!-- Blank Header -->
+                        <div class="content-header">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="header-section">
+                                        <h1>Patient Record</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Blank Header -->
+
+                       
